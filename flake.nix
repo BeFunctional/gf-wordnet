@@ -19,12 +19,13 @@
           buildInputs = [gf-core.packages.${system}.gf];
 
           buildPhase = ''
-            mkdir -p build
-            find . -name 'WordNet*.gf' -print0 | xargs -0 -n 1 -P 16 gf --output-dir=build
+
+            find . -name 'WordNet*.gf' -exec gf {} \;
           '';
           installPhase = ''
             mkdir -p $out
-            cp -r build $out/
+            cp -r *.gf $out
+            cp -r *.gfo $out
           '';
         };
       }
